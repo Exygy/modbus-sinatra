@@ -7,7 +7,7 @@ $(function() {
         if (d.errors) {
           $('#dialog .modal-body').html('<div class="alert alert-error">'+d.errors+'</div>');
         } else if (d.success) {
-          $('#dialog .modal-body').html('<div class="alert alert-success">Connected!</div>');          
+          $('#dialog .modal-body').html('<div class="alert alert-success">Connected!<br/>Value: '+d.computed+'</div>');          
         }
         $('#dialog').modal('show');
       }

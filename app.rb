@@ -31,6 +31,7 @@ class MyApp < Sinatra::Base
           # Read holding registers
           result[:success] = true
           result[:values] = slave.holding_registers[register1..register2]
+          result[:computed] = result[:values].reverse.to_32f
         end
       end      
     rescue Exception => e
