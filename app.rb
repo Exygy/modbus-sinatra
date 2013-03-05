@@ -12,8 +12,15 @@ class MyApp < Sinatra::Base
     ip_address = params[:ip_address]
     port = params[:port].empty? ? 502 : params[:port].to_i
     slave_val = params[:slave].empty? ? 1 : params[:slave].to_i
-    register1 = params[:register_1].empty? ? 1 : params[:register_1].to_i
-    register2 = params[:register_2].empty? ? 2 : params[:register_2].to_i
+    register1 = params[:register1].empty? ? 1 : params[:register1].to_i
+    register2 = params[:register2].empty? ? 2 : params[:register2].to_i
+    scale = params[:scale].empty? ? 1.0 : params[:scale].to_f
+
+    format = params[:format].empty? ? '32f' : params[:format]
+
+    # have to adjust, registers are 1 off
+    register1 -= 1
+    register2 -= 1
 
     result = {}
 
@@ -31,7 +38,7 @@ class MyApp < Sinatra::Base
           # Read holding registers
           result[:success] = true
           result[:values] = slave.holding_registers[register1..register2]
-          result[:computed] = result[:values].reverse.to_32f
+          result[:computed] = scale * result[:values].reverse.send("to_#{format}")
         end
       end      
     rescue Exception => e

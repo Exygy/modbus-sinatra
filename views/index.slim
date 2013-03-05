@@ -1,3 +1,4 @@
+doctype html
 html
   head
     title Modbus Test
@@ -20,14 +21,26 @@ html
 
           label Connection Type
           label.radio 
-            input type="radio" name="connection" value="tcp" required=true
+            input type="radio" name="connection" value="tcp" required=true checked=true
             ' TCP
           label.radio
             input type="radio" name="connection" value="rtu" required=true
             ' RTU
-
+            
           label IP address
           input name="ip_address" type="text" placeholder="192.168.1.1" required=true
+
+          label Register Format
+          label.radio 
+            input type="radio" name="format" value="32f" required=true checked=true
+            ' 32-bit float
+          label.radio
+            input type="radio" name="format" value="32i" required=true
+            ' 32-bit integer
+
+          label Scale
+          input name="scale" type="text" placeholder="1" 
+
 
           label Slave
           input name="slave" type="text" placeholder="1"
@@ -36,10 +49,10 @@ html
           input name="port" type="text" placeholder="502"
 
           label Register1
-          input name="register_1" type="text" placeholder="1"
+          input name="register1" type="text" placeholder="1"
 
           label Register2
-          input name="register_2" type="text" placeholder="2"
+          input name="register2" type="text" placeholder="2"
 
 
           div
