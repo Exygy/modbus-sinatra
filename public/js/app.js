@@ -9,7 +9,7 @@ $(function() {
     // show ajax loader
     $('#submit-btn').append('<img class="ajax-loader" src="/img/ajax-loader.gif" />');
     // hide alert (if no results)
-    if (!$('#result .results ul').length) $('#result .alert').hide(); 
+    if (!$('ul#results li').length) $('#result .alert').hide(); 
 
     // post the form data 
     $.post($(this).attr('action'), $(this).serialize(), 
@@ -20,19 +20,17 @@ $(function() {
           // display errors (which come from Exception thrown on server)
           $('#result .alert').fadeIn('fast').addClass('alert-error');
           $('#result .text').html('<strong>Error:</strong><br/>'+result.errors);
-          $('#result .results').html('');
+          $('ul#results li').remove();
         } else {
           // SUCCESS!
           // display computed value
           $('#result .alert').fadeIn('fast').removeClass('alert-error');
           $('#result .text').html('<strong>Connected!</strong>');
-          var $ul;
-          if ($('#result .results ul').length) {
-            $ul = $('#result .results ul');
-          } else {
-            $ul = $('<ul style="list-type:none;"></ul>');
-            $('#result .results').append($ul);
-          }
+
+          // find <ul> element 
+          var $ul = $('ul#results');
+
+          // add result to the list 
           $li = $('<li><em style="font-size:12px; color:#999;">'+result.gmt+':</em>&nbsp; '+result.computed+'</li>');
           $ul.append($li);
           $li.hide().slideDown();
@@ -45,6 +43,7 @@ $(function() {
 
   $('#result .close').on('click', function(e) {
     e.preventDefault();
+    $('ul#results li').remove();
     $('#result .alert').hide();
   });
 });
