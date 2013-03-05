@@ -30,12 +30,12 @@ $(function() {
           if ($('#result .results ul').length) {
             $ul = $('#result .results ul');
           } else {
-            $ul = $('<ul></ul>');
+            $ul = $('<ul style="list-type:none;"></ul>');
             $('#result .results').append($ul);
           }
-          $li = $('<li><em style="font-size:11px; color:#999;">'+result.gmt+':</em> '+result.computed+'</li>');
+          $li = $('<li><em style="font-size:12px; color:#999;">'+result.gmt+':</em>&nbsp; '+result.computed+'</li>');
           $ul.append($li);
-          $li.css('opacity', 0).fadeIn('fast');
+          $li.hide().slideDown();
 
         }
       }
