@@ -44,7 +44,8 @@ class ModbusTester < Sinatra::Base
         end
       end      
     rescue Exception => e
-      # e.g. Connection timed out
+      # catch Exception (e.g. Connection timed out)
+      # puts e.backtrace ## enable if you want to see the backtrace in the server log 
       result[:errors]     = e.message
       result[:error_type] = e.class 
     end
