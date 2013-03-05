@@ -4,4 +4,4 @@ require 'bundler'
 Bundler.require
 
 require './app.rb'
-run MyApp
+run ModbusTester

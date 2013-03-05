@@ -1,21 +1,20 @@
-class MyApp < Sinatra::Base
+class ModbusTester < Sinatra::Base
 
+  # Display the input form
   get '/' do
-    slim :index
+    slim :form
   end
 
-  post '/test' do
+  # Post form data and respond with JSON of modbus connection result
+  post '/modbus_test' do
 
-    puts "RECIEVED POST!"
-    puts params
-
+    # grab form inputs, or use default values 
     ip_address = params[:ip_address]
     port = params[:port].empty? ? 502 : params[:port].to_i
     slave_val = params[:slave].empty? ? 1 : params[:slave].to_i
     register1 = params[:register1].empty? ? 1 : params[:register1].to_i
     register2 = params[:register2].empty? ? 2 : params[:register2].to_i
     scale = params[:scale].empty? ? 1.0 : params[:scale].to_f
-
     format = params[:format].empty? ? '32f' : params[:format]
 
     # have to adjust, registers are 1 off
@@ -36,17 +35,19 @@ class MyApp < Sinatra::Base
         cl.with_slave(slave_val) do |slave|
           slave.debug = true
           # Read holding registers
-          result[:success] = true
           values = slave.holding_registers[register1..register2]
           result[:values] = values
+          # use either .to_32f or .to_32i for computation 
           result[:computed] = scale * (values.reverse.send("to_#{format}").first)
+          result[:gmt] = Time.now.utc.to_s 
         end
       end      
     rescue Exception => e
-      result[:success] = false
+      # e.g. Connection timed out 
       result[:errors] = e.message
     end
 
+    # display result as JSON 
     content_type :json
     result.to_json
 

@@ -1,0 +1,87 @@
+doctype html
+html
+  head
+    title Modbus Test
+    / include jQuery and twitter bootstrap from CDN for speed/ease
+    script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+    link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-responsive.no-icons.min.css" rel="stylesheet"
+    script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"
+    script src="/js/app.js"
+  body
+
+    .container
+
+      / #result
+      /   .modal-header
+      /     h3 Result
+      /   .modal-body
+      /   .modal-footer
+      /     button.btn data-dismiss="modal" aria-hidden="true" Close
+
+
+      form#modbus-form.form-horizontal.span6.pull-left action="/modbus_test" method="post"
+        
+        fieldset 
+          legend Modbus Tester
+
+          .control-group
+            label.control-label Connection Type
+            .controls
+              label.radio 
+                input type="radio" name="connection" value="tcp" required=true checked=true
+                ' TCP
+              label.radio
+                input type="radio" name="connection" value="rtu" required=true
+                ' RTU
+          
+          .control-group
+            label.control-label IP address
+            .controls
+              input name="ip_address" type="text" placeholder="192.168.1.1" required=true
+
+          .control-group
+            label.control-label Register Format
+            .controls
+              label.radio 
+                input type="radio" name="format" value="32f" required=true checked=true
+                ' 32-bit float
+              label.radio
+                input type="radio" name="format" value="32i" required=true
+                ' 32-bit integer
+
+          .control-group
+            label.control-label Scale
+            .controls
+              input name="scale" type="text" min="0" placeholder="1" 
+
+
+          .control-group
+            label.control-label Slave
+            .controls
+              input name="slave" type="number" placeholder="1"
+
+          .control-group
+            label.control-label Port
+            .controls
+              input name="port" type="number" min="0" placeholder="502"
+
+          .control-group
+            label.control-label Register1
+            .controls
+              input name="register1" type="number" min="1"
+
+          .control-group
+            label.control-label Register2
+            .controls
+              input name="register2" type="number" min="2"
+
+
+          .controls
+            button#submit-btn.btn type="submit"
+              ' Submit
+
+      #result.span5 style="position: fixed; left: 50%; margin-top:20px"
+        .alert.alert-block.hide.alert-success
+          a.close href="#" &times;
+          .text
+          .results 
