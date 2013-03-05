@@ -37,8 +37,9 @@ class MyApp < Sinatra::Base
           slave.debug = true
           # Read holding registers
           result[:success] = true
-          result[:values] = slave.holding_registers[register1..register2]
-          result[:computed] = scale * result[:values].reverse.send("to_#{format}")
+          values = slave.holding_registers[register1..register2]
+          result[:values] = values
+          result[:computed] = scale * (values.reverse.send("to_#{format}").first)
         end
       end      
     rescue Exception => e
