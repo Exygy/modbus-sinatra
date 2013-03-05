@@ -10,12 +10,12 @@ class ModbusTester < Sinatra::Base
 
     # grab form inputs, or use default values 
     ip_address = params[:ip_address]
-    port = params[:port].empty? ? 502 : params[:port].to_i
-    slave_val = params[:slave].empty? ? 1 : params[:slave].to_i
-    register1 = params[:register1].empty? ? 1 : params[:register1].to_i
-    register2 = params[:register2].empty? ? 2 : params[:register2].to_i
-    scale = params[:scale].empty? ? 1.0 : params[:scale].to_f
-    format = params[:format].empty? ? '32f' : params[:format]
+    port       = params[:port].empty? ? 502 : params[:port].to_i
+    slave_val  = params[:slave].empty? ? 1 : params[:slave].to_i
+    register1  = params[:register1].empty? ? 1 : params[:register1].to_i
+    register2  = params[:register2].empty? ? 2 : params[:register2].to_i
+    scale      = params[:scale].empty? ? 1.0 : params[:scale].to_f
+    format     = params[:format].empty? ? '32f' : params[:format]
 
     # have to adjust, registers are 1 off
     register1 -= 1
@@ -44,8 +44,9 @@ class ModbusTester < Sinatra::Base
         end
       end      
     rescue Exception => e
-      # e.g. Connection timed out 
-      result[:errors] = e.message
+      # e.g. Connection timed out
+      result[:errors]     = e.message
+      result[:error_type] = e.class 
     end
 
     # display result as JSON 

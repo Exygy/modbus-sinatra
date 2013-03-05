@@ -19,7 +19,7 @@ $(function() {
         if (result.errors) {
           // display errors (which come from Exception thrown on server)
           $('#result .alert').fadeIn('fast').addClass('alert-error');
-          $('#result .text').html('<strong>Error:</strong><br/>'+result.errors);
+          $('#result .text').html('<strong>Error.</strong> <em>('+result.error_type+')</em><br/>'+result.errors);
           $('ul#results li').remove();
         } else {
           // SUCCESS!
