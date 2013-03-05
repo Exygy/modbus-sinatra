@@ -8,8 +8,8 @@ $(function() {
 
     // show ajax loader
     $('#submit-btn').append('<img class="ajax-loader" src="/img/ajax-loader.gif" />');
-    // hide alert
-    $('#result .alert').hide(); 
+    // hide alert (if no results)
+    if (!$('#result .results ul').length) $('#result .alert').hide(); 
 
     // post the form data 
     $.post($(this).attr('action'), $(this).serialize(), 
@@ -33,11 +33,11 @@ $(function() {
             $ul = $('<ul></ul>');
             $('#result .results').append($ul);
           }
-          $ul.append('<li><em>'+result.gmt+':</em> '+result.computed+'</li>');
+          $li = $('<li><em style="font-size:11px; color:#999;">'+result.gmt+':</em> '+result.computed+'</li>');
+          $ul.append($li);
+          $li.css('opacity', 0).fadeIn('fast');
 
         }
-        $('#dialog').modal({keyboard: true});
-        $('#dialog').modal('show');
       }
     );
 

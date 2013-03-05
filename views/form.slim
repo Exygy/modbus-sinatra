@@ -11,14 +11,6 @@ html
 
     .container
 
-      / #result
-      /   .modal-header
-      /     h3 Result
-      /   .modal-body
-      /   .modal-footer
-      /     button.btn data-dismiss="modal" aria-hidden="true" Close
-
-
       form#modbus-form.form-horizontal.span6.pull-left action="/modbus_test" method="post"
         
         fieldset 
@@ -80,6 +72,7 @@ html
             button#submit-btn.btn type="submit"
               ' Submit
 
+      / alert box for displaying the results 
       #result.span5 style="position: fixed; left: 50%; margin-top:20px"
         .alert.alert-block.hide.alert-success
           a.close href="#" &times;

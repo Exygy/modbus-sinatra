@@ -38,8 +38,9 @@ class ModbusTester < Sinatra::Base
           values = slave.holding_registers[register1..register2]
           result[:values] = values
           # use either .to_32f or .to_32i for computation 
-          result[:computed] = scale * (values.reverse.send("to_#{format}").first)
-          result[:gmt] = Time.now.utc.to_s 
+          # also round to 4 decimal places 
+          result[:computed] = (scale * (values.reverse.send("to_#{format}").first)).round(4)
+          result[:gmt] = Time.now.utc.strftime('%H:%M:%S GMT')
         end
       end      
     rescue Exception => e
