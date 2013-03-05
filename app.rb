@@ -10,10 +10,10 @@ class MyApp < Sinatra::Base
     puts params
 
     ip_address = params[:ip_address]
-    port = params[:port].empty? ? 502 : params[:port]
-    slave = params[:slave].empty? ? 1 : params[:slave]
-    register_1 = params[:register_1].empty? ? 1 : params[:register_1]
-    register_2 = params[:register_2].empty? ? 2 : params[:register_2]
+    port = params[:port].empty? ? 502 : params[:port].to_i
+    slave_val = params[:slave].empty? ? 1 : params[:slave].to_i
+    register1 = params[:register_1].empty? ? 1 : params[:register_1].to_i
+    register2 = params[:register_2].empty? ? 2 : params[:register_2].to_i
 
     result = {}
 
@@ -34,6 +34,7 @@ class MyApp < Sinatra::Base
         end
       end      
     rescue Exception => e
+      result[:success] = false
       result[:errors] = e.message
     end
 
